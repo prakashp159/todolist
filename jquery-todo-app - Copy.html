@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>jQuery Todo App</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <h3 class="text-center my-5">jQuery Todo List</h3>
+            <div class="row">
+                <div id="todoApp" class="col-md-6 mx-auto">
+
+                    <div class="alert alert-success mb-3 d-none" role="alert">
+                        Todo Add Successfully.
+                    </div>
+
+                    <div class="alert alert-danger mb-3 d-none" role="alert">
+                        Todo is Removed.
+                    </div>
+
+                    <div class="alert alert-info mb-3 d-none" role="alert">
+                        Please Add Your Todos.
+                    </div>
+
+                    <ul class="todo-list list-group mb-5"></ul>
+
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Enter Todo Name" id="todoName" />
+                        <button class="btn btn-primary" type="button" id="saveTotdo">Save</button>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+
+            $(document).ready(function()
+            {
+                if($(".todo-list li").length<=0) {
+                    $("#todoApp .alert-info").removeClass("d-none");
+                }
+                $("#saveTotdo").click(function(){         
+                    $("#todoApp .alert").addClass("d-none");           
+                    let todoname = $('#todoName').val()
+                    $(".todo-list").append('<li class="list-group-item">'+todoname+'<button type="button" class="btn btn-sm float-end btn-danger" onclick="removeTodo(this)">Remove</button></li>');
+                    $("#todoName").val("");
+                    $("#todoApp .alert-success").removeClass("d-none");
+                    setTimeout(function(){
+                        $("#todoApp .alert-success").addClass("d-none"); 
+                    }, 3000);
+                });
+
+                
+                
+            });
+            
+            
+            function removeTodo(element) {
+                $(document).ready(function($)
+                {
+                    $(element).parent().remove();
+                    $("#todoApp .alert-danger").removeClass("d-none");
+                    $("#todoApp .alert-success").addClass("d-none");
+                    setTimeout(function(){
+                        $("#todoApp .alert-danger").addClass("d-none"); 
+                    }, 3000);
+                    if($(".todo-list li").length<=0) {
+                        $("#todoApp .alert-info").removeClass("d-none");    
+                    }
+                    
+                });
+            }
+        </script>
+    </body>
+</html>
